@@ -1,0 +1,21 @@
+#! /usr/bin/env python
+
+import sys
+import time
+import pyNotificationCenter
+
+def main():
+   workTime = sys.argv[1]   # time interval of work
+   breakTime = sys.argv[2]  # length of the break
+   sendNotification("Break Time", "Starting up...", "Welcome to Break Time! Good luck!", True)
+   while(True): # Run forever
+      time.sleep(float(workTime * 60))
+      sendNotification("Break Time", breakTime + " minute break", "Go make some tea!", True)
+      time.sleep(float(breakTime * 60)) # Wait for break to be over
+      sendNotification("Break Time", "Time to get back to work", workTime + " minutes until Break Time", True)
+
+def sendNotification (title, subtitle, message, sound):
+   pyNotificationCenter.notify(title, subtitle, message, sound=sound)
+
+if __name__ == "__main__":
+   main()
